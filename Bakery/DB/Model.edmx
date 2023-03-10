@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище BD" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="IdClient" />
+            <PropertyRef Name="IdProd" />
+          </Key>
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="IdProd" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="IdClient" />
@@ -113,6 +122,30 @@
           <Property Name="PasswordRecovery" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdRole" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Basket_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IdProd" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="IdProd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
@@ -277,6 +310,7 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Хранилище BDContainer">
+          <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -288,6 +322,14 @@
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Basket_Client" Association="Self.FK_Basket_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_Product" Association="Self.FK_Basket_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -368,6 +410,7 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Basket" EntityType="BD.Basket" />
           <EntitySet Name="Client" EntityType="BD.Client" />
           <EntitySet Name="Gender" EntityType="BD.Gender" />
           <EntitySet Name="Order" EntityType="BD.Order" />
@@ -379,6 +422,14 @@
           <EntitySet Name="Staff" EntityType="BD.Staff" />
           <EntitySet Name="sysdiagrams" EntityType="BD.sysdiagrams" />
           <EntitySet Name="UserAccount" EntityType="BD.UserAccount" />
+          <AssociationSet Name="FK_Basket_Client" Association="BD.FK_Basket_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_Product" Association="BD.FK_Basket_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
           <AssociationSet Name="FK_Client_Gender" Association="BD.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -435,6 +486,17 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="IdClient" />
+            <PropertyRef Name="IdProd" />
+          </Key>
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="IdProd" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="BD.FK_Basket_Client" FromRole="Basket" ToRole="Client" />
+          <NavigationProperty Name="Product" Relationship="BD.FK_Basket_Product" FromRole="Basket" ToRole="Product" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="IdClient" />
@@ -446,6 +508,7 @@
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GenderCode" Type="Int32" Nullable="false" />
           <Property Name="Brithday" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Basket" Relationship="BD.FK_Basket_Client" FromRole="Client" ToRole="Basket" />
           <NavigationProperty Name="Gender" Relationship="BD.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
           <NavigationProperty Name="UserAccount" Relationship="BD.FK_Client_UserAccount" FromRole="Client" ToRole="UserAccount" />
           <NavigationProperty Name="Order" Relationship="BD.FK_Order_Client" FromRole="Client" ToRole="Order" />
@@ -501,6 +564,7 @@
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Basket" Relationship="BD.FK_Basket_Product" FromRole="Product" ToRole="Basket" />
           <NavigationProperty Name="OrderProd" Relationship="BD.FK_OrderProd_Product1" FromRole="Product" ToRole="OrderProd" />
           <NavigationProperty Name="ProductType" Relationship="BD.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
         </EntityType>
@@ -565,6 +629,30 @@
           <NavigationProperty Name="Role" Relationship="BD.FK_UserAccount_Role" FromRole="UserAccount" ToRole="Role" />
           <NavigationProperty Name="Staff" Relationship="BD.FK_Staff_UserAccount" FromRole="UserAccount" ToRole="Staff" />
         </EntityType>
+        <Association Name="FK_Basket_Client">
+          <End Type="BD.Client" Role="Client" Multiplicity="1" />
+          <End Type="BD.Basket" Role="Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_Product">
+          <End Type="BD.Product" Role="Product" Multiplicity="1" />
+          <End Type="BD.Basket" Role="Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IdProd" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="IdProd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Client_Gender">
           <End Type="BD.Gender" Role="Gender" Multiplicity="1" />
           <End Type="BD.Client" Role="Client" Multiplicity="*" />
@@ -727,6 +815,15 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище BD.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище BD.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Basket">
+            <EntityTypeMapping TypeName="BD.Basket">
+              <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdProd" ColumnName="IdProd" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="BD.Client">
               <MappingFragment StoreEntitySet="Client">

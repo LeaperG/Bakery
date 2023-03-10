@@ -27,6 +27,7 @@ namespace Bakery.DB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Basket> Basket { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Order> Order { get; set; }

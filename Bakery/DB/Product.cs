@@ -11,12 +11,14 @@ namespace Bakery.DB
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.Basket = new HashSet<Basket>();
             this.OrderProd = new HashSet<OrderProd>();
         }
     
@@ -29,7 +31,12 @@ namespace Bakery.DB
         public byte[] Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Basket { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProd> OrderProd { get; set; }
         public virtual ProductType ProductType { get; set; }
+
+        //Галочка не изменяя БД
+        public Visibility InBasket { get; set; } = Visibility.Hidden;
     }
 }

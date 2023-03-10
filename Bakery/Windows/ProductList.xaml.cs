@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static Bakery.HellperClass.EFClass;
 using Bakery.HellperClass;
+using System.IO;
 
 namespace Bakery.Windows
 {
@@ -58,23 +59,41 @@ namespace Bakery.Windows
             List<Product> products = new List<Product>();
             products = ContextDB.Product.ToList();
 
-            // поиск, сортировка, фильтрация
+            
 
+            var user = TempFile.user;
+            var basket = EFClass.ContextDB.Basket.Where(i => i.IdClient == user.IdUser).ToList();
+
+            foreach (var prod in products)
+            {
+                if (basket.FirstOrDefault(i => i.IdProd == prod.IdProd) != null)
+                {
+                    prod.InBasket = Visibility.Visible;
+                }
+                else
+                {
+                    prod.InBasket = Visibility.Hidden;
+                }
+            }
+
+
+            // поиск, сортировка, фильтрация
 
 
             //Поиск
             products = products.Where(i => i.ProdName.ToLower().Contains(TbSearch.Text.ToLower())).ToList();
 
             //Фильтр
-            var product = TempFile.ProdSelect;
+            var product = TempFile.ProdSelect; // вроде не нужна    
+
+
             //CMBFilter.ItemsSource = ContextDB.ProductType.ToList();
             //CMBFilter.SelectedIndex = 0;
             //CMBFilter.DisplayMemberPath = "TypeName";
 
-            if (TempFile.Check ==3)
+            if (TempFile.Check ==3 || TempFile.ChekNew.Contains(3))
             {
                 products = products.Where(i => i.IdProdType == (CMBFilter.SelectedItem as ProductType).IdProdType).ToList();
-
             }
 
 
@@ -86,9 +105,11 @@ namespace Bakery.Windows
                     products = products.OrderBy(i => i.IdProd).ToList();
                     break;
 
+
                 case 1:
                     products = products.OrderBy(i => i.ProdName.ToLower()).ToList();
                     break;
+
 
                 case 2:
                     products = products.OrderByDescending(i => i.ProdName.ToLower()).ToList();
@@ -131,7 +152,7 @@ namespace Bakery.Windows
             }
 
             //В наличии
-            if (TempFile.Check == 2 && InStock.Content != "Не в наличии" )
+            if (TempFile.Check == 2 && InStock.Content != "Не в наличии"  || TempFile.ChekNew.Contains(2) && InStock.Content != "Не в наличии")
             {
                 products = products.Where(i => i.Quantity > 0).ToList();
                 InStock.Content = "Не в наличии";
@@ -142,7 +163,10 @@ namespace Bakery.Windows
                 products = products.Where(i => i.Quantity >= 0).ToList();
             }
 
-            TempFile.Check = 0;
+            // TempFile.Check = 0;
+            //TempFile.ChekNew = new List<int>();
+
+
             //Итоговый спсиок
             LvProduct.ItemsSource = products;
 
@@ -150,7 +174,8 @@ namespace Bakery.Windows
 
         private void AddProd_Click(object sender, RoutedEventArgs e)
         {
-            TempFile.Check = 1;
+          //  TempFile.Check = 1;
+            TempFile.ChekNew.Add(1);
             AddEditProduct addEditProduct = new AddEditProduct();
             addEditProduct.ShowDialog();
             Page_Loaded(sender, e);
@@ -160,7 +185,7 @@ namespace Bakery.Windows
         private void EditProd_Click(object sender, RoutedEventArgs e)
         {
 
-            TempFile.ProdSelect = LvProduct.SelectedItem as Product;
+            TempFile.ProdSelect = LvProduct.SelectedItem as Product; // вроде не нужно
 
             if (LvProduct.SelectedItem == null)
             {
@@ -189,7 +214,8 @@ namespace Bakery.Windows
             //LvProduct.ItemsSource = products;
             if (CMBFilter.SelectedIndex != -1)
             {
-                TempFile.Check = 3;
+               // TempFile.Check = 3;
+                TempFile.ChekNew.Add(3);
 
             }
             Page_Loaded(sender, e);
@@ -198,6 +224,7 @@ namespace Bakery.Windows
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
+            TempFile.ChekNew.Clear();
             List<Product> products = new List<Product>();
             products = ContextDB.Product.ToList();
             LvProduct.ItemsSource = products;
@@ -212,22 +239,66 @@ namespace Bakery.Windows
 
         private void InStock_Click(object sender, RoutedEventArgs e)
         {
-            TempFile.Check = 2;
+          //  TempFile.Check = 2;
+            TempFile.ChekNew.Add(2);
             Page_Loaded(sender, e);
         }
 
         private void BtnAddToCartProduct_Click(object sender, RoutedEventArgs e)
         {
-            
-            TempFile.productsBasket.Add(TempFile.ProdSelect);
-           //MessageBox.Show($"Товар {TempFile.ProdSelect.ProdName} успешно добавлен в корзину");
+
+            //TempFile.ProdSelect = LvProduct.SelectedItem as Product; // вроде не нужно
+
+
+            var button = sender as Button;
+            if (button == null)
+            {
+                return;
+            }
+
+            var prodNum = button.DataContext as Product;
+
+
+            var user = TempFile.user;
+
+            var basket = ContextDB.Basket.ToList();
+            var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
+
+
+            if (selectedProd == null)
+            {
+                Basket bas = new Basket()
+                {
+
+                    IdClient = user.IdUser,
+                    IdProd = prodNum.IdProd,
+                    Quantity = 1
+                };
+
+
+               // MessageBox.Show("Товар успешно Добавлен!", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //BasketGrid.Items.Refresh();
+                ContextDB.Basket.Add(bas);
+                ContextDB.SaveChanges();
+                Page_Loaded(sender, e);
+                return;
+            }
+
+            if (prodNum == null)
+            {
+                return;
+            }
+
+          //  MessageBox.Show("Товар уже Добавлен! Загляните в корзину", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void SignInBasket_Click(object sender, RoutedEventArgs e)
         {
-            Basket basket = new Basket();
+            BasketProd basket = new BasketProd();
             this.Close();
-            basket.Show();
+            basket.ShowDialog();
+            Page_Loaded(sender, e);
         }
     }
 }

@@ -143,18 +143,30 @@
                             <TextBlock Style="{StaticResource ItemText}"
                                        Text="{Binding Quantity, StringFormat=Количество : {0}}"/>
 
-
-                            <Button x:Name="BtnAddToCartProduct"                                     
-                                    Height="30"
-                                    Width="30"
+                            <WrapPanel>
+                                <Button x:Name="BtnAddToCartProduct"                                     
+                                    Height="50"
+                                    Width="50"
+                                    Margin="50 0 50 0 "
                                     Background="{x:Null}"
                                     BorderThickness="0"
                                     VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
+                                    HorizontalAlignment="Left"
                                     Click="BtnAddToCartProduct_Click">
                                 <Image Source="/Res/Cart6.png"/>
                             </Button>
 
+
+
+
+                            <Image Width="70"
+                                   Margin="50 0 50 0 "
+                                   Source="/Res/Check.png"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Visibility="{Binding InBasket}"/>
+                            </WrapPanel>
+                            
                         </StackPanel>
                     </Border>
                 </DataTemplate>

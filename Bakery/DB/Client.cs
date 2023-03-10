@@ -17,6 +17,7 @@ namespace Bakery.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
+            this.Basket = new HashSet<Basket>();
             this.Order = new HashSet<Order>();
         }
     
@@ -28,6 +29,8 @@ namespace Bakery.DB
         public int GenderCode { get; set; }
         public System.DateTime Brithday { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Basket { get; set; }
         public virtual Gender Gender { get; set; }
         public virtual UserAccount UserAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -97,6 +97,13 @@ namespace Bakery.Windows
 
             };
 
+
+            Client client = new Client();
+            {
+                client.IdUser = user.IdUser;
+            }
+
+            ContextDB.Client.Add(client);
             ContextDB.UserAccount.Add(user);
             ContextDB.SaveChanges();
             MessageBox.Show("Успешно сохранено", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
