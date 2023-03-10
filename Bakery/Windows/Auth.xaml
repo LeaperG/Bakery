@@ -1,0 +1,73 @@
+﻿<Window x:Class="Bakery.Windows.Auth"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bakery.Windows"
+      Title="Authorization"
+        Height="750"
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary Source="/Dictionaries/Default.xaml"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/res/bread2.jpg"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Border Style="{StaticResource RoundBorder}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                
+                Width="600">
+            <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <TextBlock Text="Авторизация"
+                       FontSize="64"
+                       
+                       Margin="0 0 0 10"/>
+
+                <Label Content="Логин:"
+                   FontSize="32"/>
+                <TextBox x:Name="LogBox"
+                         Height="60"
+                         FontSize="32"
+                     
+                     VerticalContentAlignment="Center"
+                     Margin="0 0 0 10"/>
+
+                <Label Content="Пароль:"
+                   FontSize="32"/>
+                <PasswordBox x:Name="PBox"
+                             Height="60"
+                             FontSize="32"
+                     
+                         VerticalContentAlignment="Center"
+                         Margin="0 0 0 20"/>
+
+                <Button Content="Авторизация"
+                        FontSize="48"
+                        Height="100"
+                    
+                        Margin="0 0 0 10"
+                        
+                        Click="Auth_Click"/>
+                <Label HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="20">
+                    <Hyperlink Click="Hyperlink_Click">Нет аккаунта? Зарегистрируйтесь!</Hyperlink>
+                </Label>
+
+                <Label HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="20">
+                    <Hyperlink Click="Hyperlink_Click_1">Забыл пароль ?</Hyperlink>
+                </Label>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
