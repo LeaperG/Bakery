@@ -61,6 +61,7 @@ namespace Bakery.Windows
             // поиск, сортировка, фильтрация
 
 
+
             //Поиск
             products = products.Where(i => i.ProdName.ToLower().Contains(TbSearch.Text.ToLower())).ToList();
 
