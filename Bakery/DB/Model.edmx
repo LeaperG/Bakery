@@ -20,11 +20,11 @@
           </Key>
           <Property Name="IdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdUser" Type="int" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
-          <Property Name="GenderCode" Type="int" Nullable="false" />
-          <Property Name="Brithday" Type="date" Nullable="false" />
+          <Property Name="GenderCode" Type="int" />
+          <Property Name="Brithday" Type="date" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -147,7 +147,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Client_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
@@ -503,11 +503,11 @@
           </Key>
           <Property Name="IdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdUser" Type="Int32" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GenderCode" Type="Int32" Nullable="false" />
-          <Property Name="Brithday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GenderCode" Type="Int32" />
+          <Property Name="Brithday" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Basket" Relationship="BD.FK_Basket_Client" FromRole="Client" ToRole="Basket" />
           <NavigationProperty Name="Gender" Relationship="BD.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
           <NavigationProperty Name="UserAccount" Relationship="BD.FK_Client_UserAccount" FromRole="Client" ToRole="UserAccount" />
@@ -654,7 +654,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Client_Gender">
-          <End Type="BD.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="BD.Gender" Role="Gender" Multiplicity="0..1" />
           <End Type="BD.Client" Role="Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">

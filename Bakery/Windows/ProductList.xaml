@@ -179,8 +179,7 @@
                 Content="Добавить товар"
                 FontSize="22"
                 Grid.Row="3"
-                Margin="920,5,0,0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
                 Click="AddProd_Click" Height="40"
                 VerticalAlignment="Top"/>
 
@@ -189,6 +188,7 @@
                 Content="Корзина"
                 FontSize="22"
                 Grid.Row="3"
+                Margin="300 0 0 0"
                 HorizontalAlignment="Center"
                 Click="SignInBasket_Click"
                 Height="40"
@@ -197,12 +197,24 @@
 
         <Button x:Name="EditProd"
                      Grid.Row="3"
-                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Center"
+                     Width="250"
                      Height="40"
-                     Width="200"
                      Content="Редактировать"
-                     FontSize="18"
-                     Margin="0 10 0 5"
+                     FontSize="22"
+                     Margin="0 0 300 0"
                      Click="EditProd_Click"/>
+
+
+        <Button x:Name="SignOut"
+                Width="250"
+                Content="Выйти"
+                FontSize="22"
+                Grid.Row="3"
+                HorizontalAlignment="Left"
+                Click="SignOut_Click"
+                Height="40"
+                VerticalAlignment="Top"/>
     </Grid>
 </Window>

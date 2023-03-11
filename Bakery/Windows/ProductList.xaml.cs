@@ -174,7 +174,7 @@ namespace Bakery.Windows
 
         private void AddProd_Click(object sender, RoutedEventArgs e)
         {
-          //  TempFile.Check = 1;
+            TempFile.Check = 1;
             TempFile.ChekNew.Add(1);
             AddEditProduct addEditProduct = new AddEditProduct();
             addEditProduct.ShowDialog();
@@ -305,6 +305,13 @@ namespace Bakery.Windows
             this.Close();
             basket.ShowDialog();
             Page_Loaded(sender, e);
+        }
+
+        private void SignOut_Click(object sender, RoutedEventArgs e)
+        {
+            Auth auth = new Auth();
+            this.Close();
+            auth.Show();
         }
     }
 }

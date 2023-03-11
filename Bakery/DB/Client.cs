@@ -26,8 +26,8 @@ namespace Bakery.DB
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
-        public int GenderCode { get; set; }
-        public System.DateTime Brithday { get; set; }
+        public Nullable<int> GenderCode { get; set; }
+        public Nullable<System.DateTime> Brithday { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Basket { get; set; }
