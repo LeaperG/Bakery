@@ -47,6 +47,7 @@ namespace Bakery.Windows
         private void BtnAddCount_Click(object sender, RoutedEventArgs e)
         {
 
+
             var button = sender as Button;
             if (button == null)
             {
@@ -54,24 +55,43 @@ namespace Bakery.Windows
             }
 
             var prodNum = button.DataContext as Basket;
+            var prod = ContextDB.Product.ToList();
+            var selectProd = prod.FirstOrDefault(i => i.IdProd == prodNum.IdProd );
 
 
-            var user = TempFile.user;
-
-            var basket = ContextDB.Basket.ToList();
-            var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
 
 
-            int count = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser).Quantity;
-            selectedProd.Quantity = count + 1;
-            ContextDB.SaveChanges();
-            Page_LoadedBasket(sender, e);
+
+            if (selectProd.Quantity != 0  && selectProd.Quantity > prodNum.Quantity)
+            {
+                  //Учётная запись
+                  var user = TempFile.user;
+
+                  //Получение списка Корзины с условием
+                  var basket = ContextDB.Basket.ToList();
+                  var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
+
+
+                //Удаление количества продуктов из таблицы Product
+                // selectProd.Quantity += -1;
+
+
+
+                  int count = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser).Quantity;
+                  selectedProd.Quantity = count + 1;
+                  ContextDB.SaveChanges();
+                  Page_LoadedBasket(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Извините товар закончился", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
         }
 
         private void BtnMinusCount_Click(object sender, RoutedEventArgs e)
         {
-           // TempFile.ProdSelect = LvProductBasket.SelectedItem as Product; // вроде не нужно
+            // TempFile.ProdSelect = LvProductBasket.SelectedItem as Product; // вроде не нужно
 
 
             var button = sender as Button;
@@ -81,24 +101,35 @@ namespace Bakery.Windows
             }
 
             var prodNum = button.DataContext as Basket;
-            var user = TempFile.user;
+            var prod = ContextDB.Product.ToList();
+            var selectProd = prod.FirstOrDefault(i => i.IdProd == prodNum.IdProd);
 
 
-            var basket = ContextDB.Basket.ToList();
-            var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
 
+                   var user = TempFile.user;
+                   var basket = ContextDB.Basket.ToList();
+                   var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
 
-            if (selectedProd.Quantity == 1)
+            if (selectedProd.Quantity != 1)
             {
-                return;
+                   //Для изменения количества продукта в таблице Product
+                   //selectProd.Quantity = selectProd.Quantity + 1;
+
+
+
+                   if (selectedProd.Quantity == 1)
+                   {
+                       return;
+                   }
+
+                   int count = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser).Quantity;
+                   selectedProd.Quantity = count - 1;
+
+                   ContextDB.SaveChanges();
+
+                   Page_LoadedBasket(sender, e);
             }
 
-            int count = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser).Quantity;
-            selectedProd.Quantity = count - 1;
-
-            ContextDB.SaveChanges();
-
-            Page_LoadedBasket(sender, e);
 
         }
 
@@ -117,6 +148,11 @@ namespace Bakery.Windows
                 }
 
                 var prodNum = button.DataContext as Basket;
+                var prod = ContextDB.Product.ToList();
+                var selectProd = prod.FirstOrDefault(i => i.IdProd == prodNum.IdProd);
+                //Для изменения количества продукта в таблице Product
+                //selectProd.Quantity += prodNum.Quantity;
+
                 EFClass.ContextDB.Basket.Remove(prodNum);
                 EFClass.ContextDB.SaveChanges();
                 LvProductBasket.ItemsSource = EFClass.ContextDB.Basket.ToList();

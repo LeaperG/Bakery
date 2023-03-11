@@ -265,7 +265,7 @@ namespace Bakery.Windows
             var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
 
 
-            if (selectedProd == null)
+            if (selectedProd == null && prodNum.Quantity != 0)
             {
                 Basket bas = new Basket()
                 {
@@ -275,8 +275,11 @@ namespace Bakery.Windows
                     Quantity = 1
                 };
 
+                //Для изменения количества продукта в таблице Product
+                //Удаление количества продуктов из таблицы Product
+                //prodNum.Quantity += -1;
 
-               // MessageBox.Show("Товар успешно Добавлен!", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
+                // MessageBox.Show("Товар успешно Добавлен!", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 //BasketGrid.Items.Refresh();
                 ContextDB.Basket.Add(bas);
@@ -285,8 +288,11 @@ namespace Bakery.Windows
                 return;
             }
 
-            if (prodNum == null)
+
+            if (prodNum == null || prodNum.Quantity == 0)
             {
+                MessageBox.Show("Извините товар закончился", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 return;
             }
 
