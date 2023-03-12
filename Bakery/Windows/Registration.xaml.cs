@@ -71,6 +71,34 @@ namespace Bakery.Windows
                 return;
             }
 
+            var accounts = ContextDB.UserAccount.ToList();
+            var CheckUser = accounts.FirstOrDefault(i => (i.LoginName.ToLower() == LoginBox.Text.ToLower()));
+
+            if (CheckUser != null)
+            {
+                MessageBox.Show("Такой логин есть", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+
+            CheckUser = accounts.FirstOrDefault(i => (i.Email.ToLower() == EmailBox.Text.ToLower()));
+
+            if (CheckUser != null)
+            {
+                MessageBox.Show("Такая почта уже есть", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+
+
+            CheckUser = accounts.FirstOrDefault(i => (i.Phone.Contains(PhoneBox.Text)));
+
+            if (CheckUser != null)
+            {
+                MessageBox.Show("Такой номер телефона уже есть", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+
+
+
 
             // Рандомный Пароль для Востановления
             Random rnd = new Random();
@@ -98,12 +126,12 @@ namespace Bakery.Windows
             };
 
 
-            //Client client = new Client();
-            //{
-            //    client.IdUser = user.IdUser;
-            //}
+            Client client = new Client();
+            {
+                client.IdUser = user.IdUser;
+            }
 
-            //ContextDB.Client.Add(client);
+            ContextDB.Client.Add(client);
             ContextDB.UserAccount.Add(user);
             ContextDB.SaveChanges();
             MessageBox.Show("Успешно сохранено", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);

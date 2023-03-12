@@ -11,6 +11,7 @@ namespace Bakery.HellperClass
     {
         public static DB.UserAccount user;
         public static DB.Product ProdSelect;
+        public static DB.UserAccount UserSelect;
       //  public static DB.Product ProdCart;
         public static DB.Product editProd;
         //public static DB.Basket basketG;

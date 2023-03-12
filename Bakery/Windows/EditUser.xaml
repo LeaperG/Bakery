@@ -1,0 +1,132 @@
+﻿<Window x:Class="Bakery.Windows.EditUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bakery.Windows"
+        mc:Ignorable="d"
+        Title="EditUser" Height="800" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/res/BakeryBackground.jpg"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+
+
+        <StackPanel>
+            <Border Style="{StaticResource DefBorder}"
+                    Margin="30 10 30 10"
+                    Width="400">
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                </Border.Background>
+                <TextBlock Text="Редактировать"
+                            FontSize="38"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"/>
+            </Border>
+
+
+            <Border Style="{StaticResource DefBorder}"
+                Margin="20"
+                Height="500">
+
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0 20 0 0">
+                        <TextBlock Text="Логин:"
+                                   Style="{StaticResource Hint}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="28"
+                                   Margin="11"/>
+                        <TextBlock Text="Почта:"
+                                   Style="{StaticResource Hint}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="28"
+                                   Margin="11"/>
+                        <TextBlock Text="Тип Роли:"
+                                   Style="{StaticResource Hint}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="28"
+                                   Margin="11"/>
+                        <TextBlock Text="Phone:"
+                                   Style="{StaticResource Hint}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="28"
+                                   Margin="11"/>
+                        <TextBlock Text="Пароль:"
+                                   Style="{StaticResource Hint}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="28"
+                                   Margin="11"/>
+                    </StackPanel>
+
+
+                        <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Width="350"
+                                    Margin="0 25 0 0"
+                                    Grid.Column="1">
+                            
+                            <TextBox x:Name="TbLoginName"
+                                     Margin="15"
+                                     Height="42"
+                                     Style="{StaticResource Input}"/>
+
+                            
+
+                            <TextBox x:Name="TbEmail"
+                                      Margin="15"
+                                      Height="42"
+                                      VerticalContentAlignment="Top"
+                                      Style="{StaticResource Input}"
+                                      TextWrapping="Wrap"/>
+
+
+                            
+
+
+                            <ComboBox x:Name="CMBUserRole"
+                                  Margin="15"
+                                  Height="42"/>
+
+                            
+
+                            <TextBox x:Name="TbPhone"
+                                 Margin="15"
+                                 VerticalContentAlignment="Top"
+                                 Style="{StaticResource Input}"/>
+
+                            
+
+                            <TextBox x:Name="TbPassword"
+                                 Margin="15"
+                                 VerticalContentAlignment="Top"
+                                 Style="{StaticResource Input}"/>
+
+                        </StackPanel>
+                </Grid>
+            </Border>
+
+            <Button x:Name="Edit"
+                Content="Изменить"
+                Width="350"
+                Height="60"
+                FontSize="24"
+                Click="Edit_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

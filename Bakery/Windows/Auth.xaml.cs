@@ -51,12 +51,18 @@ namespace Bakery.Windows
 
             TempFile.user = user;
 
-
             if (user == null)
             {
                 MessageBox.Show("Такого пользователя с логином не существует!");
                 return;
             }
+
+            if (user.IdRole == 5)
+            {
+                MessageBox.Show("Упс вы забанены, Нам НЕ жаль:)!", "Вход", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
 
 
             if (PBox.Password == user.Password)

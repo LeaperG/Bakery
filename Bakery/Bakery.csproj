@@ -126,11 +126,17 @@
     <Compile Include="Windows\AddEditProduct.xaml.cs">
       <DependentUpon>AddEditProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Administrator.xaml.cs">
+      <DependentUpon>Administrator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Auth.xaml.cs">
       <DependentUpon>Auth.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\BasketProd.xaml.cs">
       <DependentUpon>BasketProd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditUser.xaml.cs">
+      <DependentUpon>EditUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ProductList.xaml.cs">
       <DependentUpon>ProductList.xaml</DependentUpon>
@@ -162,11 +168,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Administrator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Auth.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\BasketProd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

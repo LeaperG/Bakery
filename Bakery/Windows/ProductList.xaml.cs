@@ -64,6 +64,37 @@ namespace Bakery.Windows
             var user = TempFile.user;
             var basket = EFClass.ContextDB.Basket.Where(i => i.IdClient == user.IdUser).ToList();
 
+            if (user.IdRole == 1)
+            {
+                EditProd.IsEnabled = false;
+                EditProd.Visibility= Visibility.Hidden;
+                AddProd.IsEnabled = false;
+                AddProd.Visibility= Visibility.Hidden;
+                SignInAdmin.IsEnabled = false;
+                SignInAdmin.Visibility= Visibility.Hidden;
+                
+            }
+            else if(user.IdRole != 3)
+            {
+                SignInAdmin.IsEnabled = false;
+                SignInAdmin.Visibility = Visibility.Hidden;
+                BorderTitle.Width = 200;
+                Title.Text = "Раб";
+            }
+            else
+            {
+                BorderTitle.Width = 650;
+                Title.Text = "Здравстуй мой Хозяин";
+            }
+
+
+
+
+
+
+
+
+
             foreach (var prod in products)
             {
                 if (basket.FirstOrDefault(i => i.IdProd == prod.IdProd) != null)
@@ -312,6 +343,13 @@ namespace Bakery.Windows
             Auth auth = new Auth();
             this.Close();
             auth.Show();
+        }
+
+        private void SignInAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            Administrator administrator = new Administrator();
+            this.Close();
+            administrator.ShowDialog();
         }
     }
 }
