@@ -141,5 +141,10 @@ namespace Bakery.Windows
                 pathPhoto = openFileDialog.FileName;
             }
         }
+
+        private void TbProdDescription_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

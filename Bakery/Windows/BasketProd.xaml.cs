@@ -159,5 +159,62 @@ namespace Bakery.Windows
                 Page_LoadedBasket(sender, e);
             }
         }
+
+        private void Order_Click(object sender, RoutedEventArgs e)
+        {
+
+            //var button = sender as Button;
+            //if (button == null)
+            //{
+            //    return;
+            //}
+
+            //var prodNum = button.DataContext as Basket;
+
+
+            //var user = TempFile.user;
+
+            //// var basket = ContextDB.Basket.ToList();
+            //// var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
+
+
+            ////  if (selectedProd == null && prodNum.Quantity != 0)
+            //// {
+            ////Basket bas = new Basket()
+            ////{
+
+            ////    IdClient = user.IdUser,
+            ////    IdProd = prodNum.IdProd,
+            ////    Quantity = 1
+            ////};
+
+            ////Для изменения количества продукта в таблице Product
+            ////Удаление количества продуктов из таблицы Product
+            ////prodNum.Quantity += -1;
+
+            //// MessageBox.Show("Товар успешно Добавлен!", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            ////BasketGrid.Items.Refresh();
+
+            //Order order = new Order()
+            //{
+            //    IdClient = TempFile.user.IdUser,
+            //    IdStaff = 1,
+            //    OrderDate= DateTime.Now,
+            //};
+
+
+
+            //    ContextDB.Order.Add(order);
+            //    ContextDB.SaveChanges();
+            //    Page_LoadedBasket(sender, e);
+                
+
+
+
+            OrderClient ord = new OrderClient();
+            this.Close();
+            ord.ShowDialog();
+        }
     }
 }

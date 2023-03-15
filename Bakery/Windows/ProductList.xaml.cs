@@ -78,6 +78,8 @@ namespace Bakery.Windows
             {
                 SignInAdmin.IsEnabled = false;
                 SignInAdmin.Visibility = Visibility.Hidden;
+                SignInBasket.IsEnabled = false;
+                SignInBasket.Visibility = Visibility.Hidden;
                 BorderTitle.Width = 200;
                 Title.Text = "Раб";
             }
@@ -86,12 +88,6 @@ namespace Bakery.Windows
                 BorderTitle.Width = 650;
                 Title.Text = "Здравстуй мой Хозяин";
             }
-
-
-
-
-
-
 
 
 
@@ -340,6 +336,7 @@ namespace Bakery.Windows
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
+            TempFile.ChekNew.Clear();
             Auth auth = new Auth();
             this.Close();
             auth.Show();

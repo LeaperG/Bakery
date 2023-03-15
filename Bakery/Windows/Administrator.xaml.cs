@@ -175,6 +175,7 @@ namespace Bakery.Windows
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            TempFile.ChekNew.Clear();
             ProductList productList = new ProductList();
             this.Close();
             productList.ShowDialog();
