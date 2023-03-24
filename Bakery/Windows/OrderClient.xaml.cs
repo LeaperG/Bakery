@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bakery.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Bakery.HellperClass.EFClass;
+using Bakery.HellperClass;
 
 namespace Bakery.Windows
 {
@@ -26,14 +29,19 @@ namespace Bakery.Windows
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            ProductList productList = new ProductList();
+            OrderList orderList = new OrderList();
             this.Close();
-            productList.Show();
+            orderList.Show();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            List<OrderProd> orderProds= new List<OrderProd>();
+            orderProds = ContextDB.OrderProd.ToList();
+            orderProds = orderProds.Where(i => i.Order.IdOrder == TempFile.IdOrder).ToList();
 
+
+            LvProductOrder.ItemsSource = orderProds;
         }
     }
 }

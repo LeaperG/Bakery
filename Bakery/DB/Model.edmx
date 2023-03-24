@@ -41,6 +41,7 @@
           <Property Name="IdClient" Type="int" Nullable="false" />
           <Property Name="IdStaff" Type="int" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderProd">
           <Key>
@@ -530,6 +531,7 @@
           <Property Name="IdClient" Type="Int32" Nullable="false" />
           <Property Name="IdStaff" Type="Int32" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <NavigationProperty Name="Client" Relationship="BD.FK_Order_Client" FromRole="Order" ToRole="Client" />
           <NavigationProperty Name="Staff" Relationship="BD.FK_Order_Staff" FromRole="Order" ToRole="Staff" />
           <NavigationProperty Name="OrderProd" Relationship="BD.FK_OrderProd_Order1" FromRole="Order" ToRole="OrderProd" />
@@ -848,6 +850,7 @@
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="BD.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="IdStaff" ColumnName="IdStaff" />
                 <ScalarProperty Name="IdClient" ColumnName="IdClient" />

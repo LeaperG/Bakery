@@ -34,7 +34,19 @@ namespace Bakery.Windows
             List < Basket > baskets = new List<Basket>();
             var user = TempFile.user;
             baskets = EFClass.ContextDB.Basket.Where(i => i.IdClient == user.IdUser).ToList();
-            LvProductBasket.ItemsSource = baskets;
+            if (TempFile.ChekNew.Contains(5))
+            {
+                EFClass.ContextDB.Basket.RemoveRange(baskets);
+                EFClass.ContextDB.SaveChanges();
+                LvProductBasket.ItemsSource = EFClass.ContextDB.Basket.ToList();
+                TempFile.ChekNew.Clear();
+                Page_LoadedBasket(sender, e);
+               // return;
+            }
+            else
+            {
+                LvProductBasket.ItemsSource = baskets;
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -51,7 +63,7 @@ namespace Bakery.Windows
             var button = sender as Button;
             if (button == null)
             {
-                return;
+                return; 
             }
 
             var prodNum = button.DataContext as Basket;
@@ -162,57 +174,116 @@ namespace Bakery.Windows
 
         private void Order_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            if (button == null)
+            {
+                return;
+            }
 
-            //var button = sender as Button;
-            //if (button == null)
-            //{
-            //    return;
-            //}
+            var basket = ContextDB.Basket.ToList();
 
-            //var prodNum = button.DataContext as Basket;
-
-
-            //var user = TempFile.user;
-
-            //// var basket = ContextDB.Basket.ToList();
-            //// var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
+            var user = TempFile.user;
 
 
-            ////  if (selectedProd == null && prodNum.Quantity != 0)
-            //// {
-            ////Basket bas = new Basket()
-            ////{
+            List<Basket> baskets= new List<Basket>();
+            baskets = ContextDB.Basket.Where(i => i.IdProd >= 1 && i.IdClient == user.IdUser).ToList();
+            var selectedProd = basket.FirstOrDefault(i => i.IdClient == user.IdUser);
+            int a = 0;
 
-            ////    IdClient = user.IdUser,
-            ////    IdProd = prodNum.IdProd,
-            ////    Quantity = 1
-            ////};
+            if (selectedProd == null)
+            {
+                MessageBox.Show("Корзина пуста", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-            ////Для изменения количества продукта в таблице Product
-            ////Удаление количества продуктов из таблицы Product
-            ////prodNum.Quantity += -1;
+            var prod = ContextDB.Product.ToList();
+            var selectProd = prod.FirstOrDefault(i => i.IdProd == selectedProd.IdProd);
 
-            //// MessageBox.Show("Товар успешно Добавлен!", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
+            int c = 0;
+         //   selectProd = prod[0];
+            for (int j = 0; c < baskets.Count; j++)
+            {
+                if (selectProd.IdProd == selectedProd.IdProd)
+                {
+                    selectProd.Quantity += -selectedProd.Quantity;
+                    c++;
 
-            ////BasketGrid.Items.Refresh();
+                    if (baskets.Count > c ) //Чтобы индекс не переходил за размера массива
+                    {
+                        selectedProd = baskets[c];
 
-            //Order order = new Order()
-            //{
-            //    IdClient = TempFile.user.IdUser,
-            //    IdStaff = 1,
-            //    OrderDate= DateTime.Now,
-            //};
-
-
-
-            //    ContextDB.Order.Add(order);
-            //    ContextDB.SaveChanges();
-            //    Page_LoadedBasket(sender, e);
-                
+                    }
+                    j = 0;
+                }
+                if (prod.Count > j)
+                {
+                    selectProd = prod[j];
+                }
+            }
 
 
 
-            OrderClient ord = new OrderClient();
+
+            if (baskets.Count <= 0)
+            {
+                OrderClient orde = new OrderClient();
+                this.Close();
+                orde.ShowDialog();
+                return;
+            }
+            
+            Order order = new Order()
+            {
+                IdClient = TempFile.user.IdUser,
+                IdStaff = 1,
+                OrderDate = DateTime.Now,
+            };
+
+            ContextDB.Order.Add(order);
+
+            var b = selectedProd.Product.Cost - selectedProd.Product.Cost;
+            var g = b;
+            var sum = g;
+            while (a < baskets.Count)
+            {
+                //selectProd = prod[selectedProd.IdProd];
+                //selectProd.Quantity = selectProd.Quantity-1;
+
+                selectedProd = baskets[a];
+                b += selectedProd.Product.Cost;
+                g += selectedProd.Quantity;
+                sum += b * g;
+
+                if (/*selectedProd.IdProd < basket.Count*/ true) // Не помню зачем ?
+                {
+
+
+
+
+                    OrderProd orderProd = new OrderProd()
+                    {
+                        IdOrder = order.IdOrder,
+                        IdProd = selectedProd.IdProd,
+                        Quantity = selectedProd.Quantity,
+                    };
+
+
+                    order.Cost = sum;
+
+                    ContextDB.OrderProd.Add(orderProd);
+                    ContextDB.SaveChanges();
+
+                }
+                a++;
+                b = 0;
+                g = 0;
+            }
+
+            TempFile.ChekNew.Add(5);
+            TempFile.ChekNew.Add(6);
+
+            Page_LoadedBasket(sender, e);
+            OrderList ord = new OrderList();
             this.Close();
             ord.ShowDialog();
         }

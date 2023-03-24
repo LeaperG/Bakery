@@ -24,10 +24,16 @@ namespace Bakery.DB
         public int IdClient { get; set; }
         public int IdStaff { get; set; }
         public System.DateTime OrderDate { get; set; }
+        public decimal Cost { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProd> OrderProd { get; set; }
+
+
+        //Для указание номера заказа(заказ 1, заказ 2 ...)
+        public int OrderNumber { get; set; }
+
     }
 }

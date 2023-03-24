@@ -133,7 +133,7 @@
                 Content="Вернуться назад"
                 FontSize="22"
                 Grid.Row="3"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
                 Click="Back_Click"
                 Height="40"
                 VerticalAlignment="Top"/>
@@ -142,7 +142,7 @@
                 Content="Заказать"
                 FontSize="22"
                 Grid.Row="3"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
                 Click="Order_Click"
                 Height="40"
                 VerticalAlignment="Top"/>

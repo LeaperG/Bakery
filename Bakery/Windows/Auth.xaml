@@ -52,7 +52,7 @@
                 <Button Content="Авторизация"
                         FontSize="48"
                         Height="100"
-                    
+                        IsDefault="True"
                         Margin="0 0 0 10"
                         
                         Click="Auth_Click"/>

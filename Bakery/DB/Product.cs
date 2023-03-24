@@ -13,7 +13,6 @@ namespace Bakery.DB
     using System.Collections.Generic;
     using System.Windows;
 
-
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,7 +35,6 @@ namespace Bakery.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProd> OrderProd { get; set; }
         public virtual ProductType ProductType { get; set; }
-
 
         //Галочка не изменяя БД
         public Visibility InBasket { get; set; } = Visibility.Hidden;

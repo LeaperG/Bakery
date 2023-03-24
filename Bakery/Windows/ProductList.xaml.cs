@@ -24,6 +24,7 @@ namespace Bakery.Windows
     /// </summary>
     public partial class ProductList : Window
     {
+        int a = 0;
 
         List<string> listSort = new List<string>()
         {
@@ -52,6 +53,7 @@ namespace Bakery.Windows
 
             CMBSorting.ItemsSource = listSort;
             CMBSorting.SelectedIndex = 0;
+            a++;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -59,20 +61,19 @@ namespace Bakery.Windows
             List<Product> products = new List<Product>();
             products = ContextDB.Product.ToList();
 
-            
-
             var user = TempFile.user;
             var basket = EFClass.ContextDB.Basket.Where(i => i.IdClient == user.IdUser).ToList();
 
             if (user.IdRole == 1)
             {
                 EditProd.IsEnabled = false;
-                EditProd.Visibility= Visibility.Hidden;
+                EditProd.Visibility = Visibility.Hidden;
                 AddProd.IsEnabled = false;
-                AddProd.Visibility= Visibility.Hidden;
+                AddProd.Visibility = Visibility.Hidden;
                 SignInAdmin.IsEnabled = false;
-                SignInAdmin.Visibility= Visibility.Hidden;
-                
+                SignInAdmin.Visibility = Visibility.Hidden;
+               //Orders.Margin = new Thickness(0);
+                PersonalAccount.Margin = new Thickness(0, 0, 300, 10);
             }
             else if(user.IdRole != 3)
             {
@@ -80,11 +81,25 @@ namespace Bakery.Windows
                 SignInAdmin.Visibility = Visibility.Hidden;
                 SignInBasket.IsEnabled = false;
                 SignInBasket.Visibility = Visibility.Hidden;
+                AddProd.HorizontalAlignment = HorizontalAlignment.Right;
+                AddProd.VerticalAlignment = VerticalAlignment.Top;
+                AddProd.SetValue(Grid.RowProperty, 3);
+                AddProd.Margin = new Thickness(0);
+                Orders.IsEnabled = false;
+                Orders.Visibility = Visibility.Hidden;
+                EditProd.Margin = new Thickness(0);
+                PersonalAccount.IsEnabled = false;
+                PersonalAccount.Visibility = Visibility.Hidden;
+
                 BorderTitle.Width = 200;
                 Title.Text = "Раб";
             }
             else
             {
+                PersonalAccount.SetValue(Grid.RowProperty, 0);
+                PersonalAccount.Margin = new Thickness(0, 0, 0, 40);
+                PersonalAccount.HorizontalAlignment = HorizontalAlignment.Right;
+                SignInAdmin.Margin = new Thickness(0, 60, 0, 0);
                 BorderTitle.Width = 650;
                 Title.Text = "Здравстуй мой Хозяин";
             }
@@ -178,15 +193,33 @@ namespace Bakery.Windows
                     break;
             }
 
+            TempFile.productLists = products.ToList();
+
             //В наличии
-            if (TempFile.Check == 2 && InStock.Content != "Не в наличии"  || TempFile.ChekNew.Contains(2) && InStock.Content != "Не в наличии")
+            if (TempFile.CheckInStock == 1 && InStock.Content != "В наличии" /*|| TempFile.Check == 2 && InStock.Content != "Не в наличии"  || TempFile.ChekNew.Contains(2) && InStock.Content != "Не в наличии"*/)
+            {
+                InStock.Content = "В наличии";
+                products = products.Where(i => i.Quantity >= 0).ToList();
+            }
+            else if(TempFile.CheckInStock == 1 && InStock.Content != "Не в наличии")
             {
                 products = products.Where(i => i.Quantity > 0).ToList();
                 InStock.Content = "Не в наличии";
             }
-            else
+            else if(a == 1)
             {
-                InStock.Content = "В наличии";
+                products = products.Where(i => i.Quantity > 0).ToList();
+                InStock.Content = "Не в наличии";
+
+            }
+            else if(InStock.Content == "Не в наличии")
+            {
+                products = TempFile.productLists;
+                products = products.Where(i => i.Quantity > 0).ToList();
+            }
+            else if (InStock.Content == "В наличии")
+            {
+                products = TempFile.productLists;
                 products = products.Where(i => i.Quantity >= 0).ToList();
             }
 
@@ -252,9 +285,11 @@ namespace Bakery.Windows
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             TempFile.ChekNew.Clear();
+            TempFile.CheckInStock = 0;
             List<Product> products = new List<Product>();
             products = ContextDB.Product.ToList();
             LvProduct.ItemsSource = products;
+            CMBSorting.SelectedIndex = 0;
             TbSearch.Clear();
             CMBFilter.SelectedIndex = -1;
         }
@@ -266,7 +301,8 @@ namespace Bakery.Windows
 
         private void InStock_Click(object sender, RoutedEventArgs e)
         {
-          //  TempFile.Check = 2;
+            //  TempFile.Check = 2;
+            TempFile.CheckInStock = 1;
             TempFile.ChekNew.Add(2);
             Page_Loaded(sender, e);
         }
@@ -274,6 +310,11 @@ namespace Bakery.Windows
         private void BtnAddToCartProduct_Click(object sender, RoutedEventArgs e)
         {
 
+            var user = TempFile.user;
+            if (user.IdRole !=3 && user.IdRole !=1)
+            {
+                return;
+            }
             //TempFile.ProdSelect = LvProduct.SelectedItem as Product; // вроде не нужно
 
 
@@ -286,7 +327,6 @@ namespace Bakery.Windows
             var prodNum = button.DataContext as Product;
 
 
-            var user = TempFile.user;
 
             var basket = ContextDB.Basket.ToList();
             var selectedProd = basket.FirstOrDefault(i => i.IdProd == prodNum.IdProd && i.IdClient == user.IdUser);
@@ -294,6 +334,7 @@ namespace Bakery.Windows
 
             if (selectedProd == null && prodNum.Quantity != 0)
             {
+                
                 Basket bas = new Basket()
                 {
 
@@ -309,8 +350,10 @@ namespace Bakery.Windows
                 // MessageBox.Show("Товар успешно Добавлен!", "Товар", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 //BasketGrid.Items.Refresh();
+                a++;
                 ContextDB.Basket.Add(bas);
                 ContextDB.SaveChanges();
+                TempFile.CheckInStock = 0;
                 Page_Loaded(sender, e);
                 return;
             }
@@ -347,6 +390,32 @@ namespace Bakery.Windows
             Administrator administrator = new Administrator();
             this.Close();
             administrator.ShowDialog();
+        }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            OrderList orderList = new OrderList();
+            this.Close();
+            orderList.ShowDialog();
+        }
+
+        private void Border_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //Не выводить описание если оно пустое
+            var border = sender as Border;
+            var prodNum = border.DataContext as Product;
+            if (prodNum.Description == "")
+            {
+                ToolTipService.SetIsEnabled(border, false);
+                return;
+            }
+        }
+
+        private void PersonalAccount_Click(object sender, RoutedEventArgs e)
+        {
+            Personal personal = new Personal();
+            this.Close();
+            personal.ShowDialog();
         }
     }
 }

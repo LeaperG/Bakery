@@ -130,6 +130,7 @@ namespace Bakery.Windows
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
+            TempFile.ChekNew.Clear();
             Auth auth = new Auth();
             this.Close();
             auth.ShowDialog();

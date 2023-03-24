@@ -60,6 +60,15 @@
                 Height="40"
                 VerticalAlignment="Top"/>
 
+        <Button x:Name="AddProd"
+                Width="250"
+                Content="Добавить товар"
+                FontSize="22"
+                Margin="0 40 0 0"
+                HorizontalAlignment="Left"
+                Click="AddProd_Click" Height="40"
+                VerticalAlignment="Top"/>
+
         <WrapPanel Grid.Row="1" 
                    VerticalAlignment="Center">
 
@@ -133,8 +142,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Style="{StaticResource ItemBorder}"
-                            
-                            Margin="10">
+                            Margin="10"
+                            ToolTip="{Binding Description}"
+                            MouseEnter="Border_MouseEnter">
                         <StackPanel Orientation="Vertical">
                             <Image Width="230"
                                    Height="180"
@@ -187,15 +197,6 @@
 
         </ListView>
 
-        <Button x:Name="AddProd"
-                Width="250"
-                Content="Добавить товар"
-                FontSize="22"
-                Grid.Row="3"
-                HorizontalAlignment="Center"
-                Margin="300 0 0 0"
-                Click="AddProd_Click" Height="40"
-                VerticalAlignment="Top"/>
 
         <Button x:Name="SignInBasket"
                 Width="250"
@@ -206,6 +207,30 @@
                 Click="SignInBasket_Click"
                 Height="40"
                 VerticalAlignment="Top"/>
+
+
+        <Button x:Name="Orders"
+                Width="250"
+                Content="Заказы"
+                FontSize="22"
+                Grid.Row="3"
+                HorizontalAlignment="Center"
+                Click="Orders_Click"
+                Height="40"
+                Margin="300 0 0 0"
+                VerticalAlignment="Top"/>
+
+
+        <Button x:Name="PersonalAccount"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Height="40"
+                Width="250"
+                Grid.Row="3"
+                Margin="0 0 300 0"
+                Content="Личный кабинет"
+                FontSize="22"
+                Click="PersonalAccount_Click"/>
 
 
         <Button x:Name="EditProd"
