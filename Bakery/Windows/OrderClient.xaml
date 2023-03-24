@@ -13,6 +13,7 @@
     <Window.Resources>
         <ResourceDictionary Source="/Dictionaries/ProdListDic.xaml"/>
     </Window.Resources>
+    
 
 
     <Grid>
