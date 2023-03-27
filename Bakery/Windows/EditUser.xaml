@@ -96,8 +96,6 @@
                                       TextWrapping="Wrap"/>
 
 
-                            
-
 
                             <ComboBox x:Name="CMBUserRole"
                                   Margin="15"
@@ -116,80 +114,6 @@
                                  Margin="15"
                                  VerticalContentAlignment="Top"
                                  Style="{StaticResource Input}"/>
-
-
-                            <Label Content="Имя:"
-                           FontSize="26"/>
-
-                            <TextBox x:Name="FirstNameBox"
-                             Height="40"
-                             FontSize="32"
-                             VerticalContentAlignment="Center"
-                             Margin="0 0 0 10"/>
-
-                            <Label Content="Фамилия:"
-                           FontSize="26"/>
-
-                            <TextBox x:Name="LastNameBox"
-                             Height="40"
-                             FontSize="32"
-                             VerticalContentAlignment="Center"
-                             Margin="0 0 0 10"/>
-
-                            <Label Content="Отчество:"
-                           FontSize="26"/>
-
-                            <TextBox x:Name="PatronymicBox"
-                             Height="40"
-                             FontSize="32"
-                             VerticalContentAlignment="Center"
-                             Margin="0 0 0 10"/>
-
-
-                            <Label Content="Пол:"
-                           FontSize="26"/>
-
-                            <ComboBox x:Name="CMBGender"
-                              FontSize="32"
-                              VerticalContentAlignment="Center"
-                              Margin="0 0 0 10"/>
-
-                            <Label Content="День рождения:"
-                           FontSize="26"/>
-
-                            <TextBox x:Name="BirthdayBox"
-                             Height="40"
-                             FontSize="32"
-                             VerticalContentAlignment="Center"
-                             Margin="0 0 0 10"/>
-
-
-                            <Label Content="Роль:"
-                           FontSize="26"/>
-
-                            <ComboBox x:Name="CMBRole"
-                              FontSize="32"
-                              VerticalContentAlignment="Center"
-                              Margin="0 0 0 10"/>
-
-                            <Label Content="Мед полис:"
-                           FontSize="26"/>
-
-                            <TextBox x:Name="MedPolisBox"
-                             Height="40"
-                             FontSize="32"
-                             VerticalContentAlignment="Center"
-                             Margin="0 0 0 10"/>
-
-                            <Label Content="Зарплта"
-                           FontSize="26"/>
-
-                            <TextBox x:Name="SalaryBox"
-                             Height="40"
-                             FontSize="32"
-                             VerticalContentAlignment="Center"
-                             Margin="0 0 0 10"/>
-
 
                         </StackPanel>
                 </Grid>
