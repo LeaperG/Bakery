@@ -34,6 +34,41 @@ namespace Bakery.Windows
             List < Basket > baskets = new List<Basket>();
             var user = TempFile.user;
             baskets = EFClass.ContextDB.Basket.Where(i => i.IdClient == user.IdUser).ToList();
+
+
+
+            //Отображение количества в корзине
+            var basket = ContextDB.Basket.ToList();
+            var selectedProd = basket.FirstOrDefault(i => i.IdClient == user.IdUser);
+
+            if (selectedProd != null)
+            {
+
+                var prod = ContextDB.Product.ToList();
+                var selectProd = prod.FirstOrDefault(i => i.IdProd == selectedProd.IdProd);
+
+                var b = selectedProd.Product.Cost - selectedProd.Product.Cost;
+                var g = b;
+                var sum = g;
+                int a = 0;
+                string str = string.Empty;
+
+                while (a < baskets.Count)
+                {
+                    selectedProd = baskets[a];
+                    b += selectedProd.Product.Cost;
+                    g += selectedProd.Quantity;
+                    sum += b * g;
+                    a++;
+                    b = 0;
+                    g = 0;
+                }
+                TempFile.Summ = sum;
+                str = Convert.ToString(sum);
+                TXBCostOrder.Text = str.Substring(0, str.Length -2) + " Руб";
+            }
+
+
             if (TempFile.ChekNew.Contains(5))
             {
                 EFClass.ContextDB.Basket.RemoveRange(baskets);
@@ -241,18 +276,18 @@ namespace Bakery.Windows
 
             ContextDB.Order.Add(order);
 
-            var b = selectedProd.Product.Cost - selectedProd.Product.Cost;
-            var g = b;
-            var sum = g;
+            //var b = selectedProd.Product.Cost - selectedProd.Product.Cost;
+            //var g = b;
+            //var sum = g;
             while (a < baskets.Count)
             {
                 //selectProd = prod[selectedProd.IdProd];
                 //selectProd.Quantity = selectProd.Quantity-1;
 
                 selectedProd = baskets[a];
-                b += selectedProd.Product.Cost;
-                g += selectedProd.Quantity;
-                sum += b * g;
+                //b += selectedProd.Product.Cost;
+                //g += selectedProd.Quantity;
+                //sum += b * g;
 
                 if (/*selectedProd.IdProd < basket.Count*/ true) // Не помню зачем ?
                 {
@@ -268,15 +303,16 @@ namespace Bakery.Windows
                     };
 
 
-                    order.Cost = sum;
+                    //order.Cost = sum;
+                    order.Cost = TempFile.Summ;
 
                     ContextDB.OrderProd.Add(orderProd);
                     ContextDB.SaveChanges();
 
                 }
                 a++;
-                b = 0;
-                g = 0;
+                //b = 0;
+                //g = 0;
             }
 
             TempFile.ChekNew.Add(5);

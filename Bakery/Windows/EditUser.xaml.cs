@@ -31,6 +31,11 @@ namespace Bakery.Windows
             CMBUserRole.SelectedIndex = 0;
             CMBUserRole.DisplayMemberPath = "RoleName";
             GetListUser();
+
+            if (TempFile.UserSelect.IdRole == 1)
+            {
+                CMBUserRole.ItemsSource = ContextDB.Role.Where(i => i.IdRole == 5 || i.IdRole == 1).ToList();
+            }
         }
 
 
@@ -56,6 +61,7 @@ namespace Bakery.Windows
             user.IdRole = (CMBUserRole.SelectedItem as Role).IdRole;
             user.PasswordDate= DateTime.Now;
             user.PasswordRecovery = "5";
+
 
             if (user.IdRole != 1)
             {

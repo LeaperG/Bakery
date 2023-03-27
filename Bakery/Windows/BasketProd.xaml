@@ -146,5 +146,28 @@
                 Click="Order_Click"
                 Height="40"
                 VerticalAlignment="Top"/>
+
+       
+
+        <TextBlock Text="Сумма заказа:"
+                   FontSize="32"
+                   Grid.Row="3"
+                   Foreground="White"
+                   Background="#FFD69025"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0 0 100 0"
+                    />
+
+        <TextBlock x:Name="TXBCostOrder"
+               Text="0"
+               Grid.Row="3"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               Foreground="White"
+               FontSize="32"
+               Background="#FFD69025"
+               Margin="300 0 0 0"
+            />
     </Grid>
 </Window>

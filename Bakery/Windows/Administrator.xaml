@@ -47,6 +47,16 @@
             </TextBlock>
         </Border>
 
+        <Button x:Name="RegStaff"
+                Content="Региcтрация Раб"
+                FontSize="22"
+                Width="240"
+                Margin="0 40 0 0"
+                HorizontalAlignment="Right"
+                Click="RegStaff_Click"
+                Height="40"
+                VerticalAlignment="Top"/>
+
 
         <WrapPanel Grid.Row="1" 
                    VerticalAlignment="Center">

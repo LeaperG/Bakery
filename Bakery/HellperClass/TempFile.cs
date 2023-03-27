@@ -22,6 +22,7 @@ namespace Bakery.HellperClass
         public static List<int> ChekNew = new List<int>();
         public static List<Product> productLists = new List<Product>();
         public static int Check;
+        public static decimal Summ;
         public static int CheckInStock;
         public static int IdOrder;
         public static int CMBTypeProd;

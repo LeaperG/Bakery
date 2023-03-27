@@ -181,5 +181,11 @@ namespace Bakery.Windows
             this.Close();
             productList.ShowDialog();
         }
+
+        private void RegStaff_Click(object sender, RoutedEventArgs e)
+        {
+            StaffRegistration staffRegistration = new StaffRegistration();
+            staffRegistration.ShowDialog();
+        }
     }
 }
