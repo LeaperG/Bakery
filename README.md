@@ -18,25 +18,29 @@
 
 <h1><b>Список продуктов Клиентов</b></h1>
 
-![image](https://user-images.githubusercontent.com/116818307/225417717-28bbf46b-4e2f-4cf9-adcd-aa01fb38448f.png)
+![image](https://user-images.githubusercontent.com/116818307/228023992-2a037a2a-cf0f-4728-a06b-1b144d1b7a3d.png)
+
 
 
 
 <h1><b>Список продуктов Работников</b></h1>
 
-![image](https://user-images.githubusercontent.com/116818307/225418422-58af0aa9-fb43-43d0-bd4d-1fa7d577d001.png)
+![image](https://user-images.githubusercontent.com/116818307/228023589-2ff2ba40-21c0-47b3-8a9c-7f6786024e95.png)
+
 
 
 
 <h1><b>Список продуктов Хозяина(Меня)</b></h1>
 
-![image](https://user-images.githubusercontent.com/116818307/225418321-cc6e40a1-df84-452b-bf74-d2a5c8e21f23.png)
+![image](https://user-images.githubusercontent.com/116818307/228023032-e4910048-a2ab-49de-a87a-5dbd19a0729e.png)
 
 
 
 <h1><b>Корзина</b></h1>
 
-![image](https://user-images.githubusercontent.com/116818307/225418613-13b7c0a1-fe28-4371-b21a-771747ed58fd.png)
+![image](https://user-images.githubusercontent.com/116818307/228023137-a46c082e-80c0-4799-9abe-91b2914a1106.png)
+
+
 
 
 <h1><b>Добавление продуктов</b></h1>
@@ -54,7 +58,7 @@
 ![image](https://user-images.githubusercontent.com/116818307/228021827-922afa2c-1b13-4f4f-8b61-4ab7d6be5ea4.png)
 
 
-![image](https://user-images.githubusercontent.com/116818307/228019052-45cf6a6b-e7c8-4aac-80ef-620f9b2dec2c.png)
+
 
 
 <h1><b>Информация о заказе </b></h1>
