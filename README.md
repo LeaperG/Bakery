@@ -48,14 +48,39 @@
 ![image](https://user-images.githubusercontent.com/116818307/225419207-d1e69632-babb-4e99-932b-4620a8f8a90b.png)
 
 
-<h1><b>Заказы (Бета)</b></h1>
+<h1><b>Заказы</b></h1>
 
-![image](https://user-images.githubusercontent.com/116818307/225419461-b3fa2685-ad6e-4c2b-b65d-a705c434c574.png)
+
+![image](https://user-images.githubusercontent.com/116818307/228021827-922afa2c-1b13-4f4f-8b61-4ab7d6be5ea4.png)
+
+
+![image](https://user-images.githubusercontent.com/116818307/228019052-45cf6a6b-e7c8-4aac-80ef-620f9b2dec2c.png)
+
+
+<h1><b>Информация о заказе </b></h1>
+
+![image](https://user-images.githubusercontent.com/116818307/228019682-059fef8b-918b-4f31-a4be-568681caa870.png)
+
+
+<h1><b>Личный кабинет клиента</b></h1>
+
+
+![image](https://user-images.githubusercontent.com/116818307/228020610-b58eed59-25c4-4019-a3f4-b0b185fcf8df.png)
+
+
 
 
 <h1><b>Режим Хозяин</b></h1>
 
 ![image](https://user-images.githubusercontent.com/116818307/225419719-70c7bf4a-7e2f-4057-b22d-a5bc21a2d430.png)
+
+
+
+<h1><b>Редактирование аккаунтов</b></h1>
+
+
+![image](https://user-images.githubusercontent.com/116818307/228021287-2ff0c363-53bc-4a59-84c2-adfda1649f73.png)
+
 
 
 
