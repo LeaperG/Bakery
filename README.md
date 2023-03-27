@@ -55,7 +55,8 @@
 <h1><b>Заказы</b></h1>
 
 
-![image](https://user-images.githubusercontent.com/116818307/228021827-922afa2c-1b13-4f4f-8b61-4ab7d6be5ea4.png)
+![image](https://user-images.githubusercontent.com/116818307/228026167-33aee759-fdc3-4c85-afe3-88e5947cff04.png)
+
 
 
 
@@ -76,7 +77,8 @@
 
 <h1><b>Режим Хозяин</b></h1>
 
-![image](https://user-images.githubusercontent.com/116818307/225419719-70c7bf4a-7e2f-4057-b22d-a5bc21a2d430.png)
+![image](https://user-images.githubusercontent.com/116818307/228024719-444fce28-2c0a-404f-8d91-228d478cc16a.png)
+
 
 
 
@@ -86,7 +88,11 @@
 ![image](https://user-images.githubusercontent.com/116818307/228021287-2ff0c363-53bc-4a59-84c2-adfda1649f73.png)
 
 
+<h1><b>Регистрация работников</b></h1>
 
+
+
+![image](https://user-images.githubusercontent.com/116818307/228024875-060145b1-e8a6-482c-9c13-696e41605e36.png)
 
 
 
