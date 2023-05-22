@@ -84,6 +84,30 @@
                     VerticalAlignment="Center"  
                     Click="BtnClear_Click"/>
 
+            <TextBlock Text="C:"
+                       FontSize="24"
+                       Margin="20 0 30 0"
+                       VerticalAlignment="Center"  
+                       Background="#FFD69025"
+                       />
+            <DatePicker Name="DataPickerFrom"
+                        Margin="0 0 30 0"
+                        Width="150"
+                        VerticalAlignment="Center"
+                        SelectedDateChanged="DataPickerFrom_SelectedDateChanged"
+                       />
+
+            <TextBlock Text="До:"
+                       FontSize="24"
+                       Margin="20 0 30 0"
+                       VerticalAlignment="Center"  
+                       Background="#FFD69025"
+                       />
+            <DatePicker Name="DataPickerBefore"
+                        Width="150"
+                        VerticalAlignment="Center"
+                        SelectedDateChanged="DataPickerBefore_SelectedDateChanged"/>
+
         </WrapPanel>
 
 

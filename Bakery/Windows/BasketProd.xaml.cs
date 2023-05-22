@@ -199,11 +199,13 @@ namespace Bakery.Windows
                 var selectProd = prod.FirstOrDefault(i => i.IdProd == prodNum.IdProd);
                 //Для изменения количества продукта в таблице Product
                 //selectProd.Quantity += prodNum.Quantity;
+                TXBCostOrder.Text = "0,00 Руб";
 
                 EFClass.ContextDB.Basket.Remove(prodNum);
                 EFClass.ContextDB.SaveChanges();
                 LvProductBasket.ItemsSource = EFClass.ContextDB.Basket.ToList();
                 Page_LoadedBasket(sender, e);
+
             }
         }
 

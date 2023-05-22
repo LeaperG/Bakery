@@ -146,14 +146,14 @@
         </ListView>
 
 
-        <Button x:Name="SignInBasket"
+        <Button x:Name="Orders"
                 Width="250"
-                Content="Корзина"
+                Content="Заказы"
                 FontSize="22"
                 Grid.Row="3"
                 Margin="300 0 0 0"
                 HorizontalAlignment="Center"
-                Click="SignInBasket_Click"
+                Click="Orders_Click"
                 Height="40"
                 VerticalAlignment="Top"/>
 

@@ -42,6 +42,7 @@ namespace Bakery.Windows
         {
             InitializeComponent();
 
+            DataPickerFrom.SelectedDate = DateTime.Now.Date;
             CMBSorting.ItemsSource = listSort;
             CMBSorting.SelectedIndex = 0;
         }
@@ -50,7 +51,15 @@ namespace Bakery.Windows
         {
             List<Order> ord = new List<Order>();
             var user = TempFile.user;
-            ord = ContextDB.Order.Where(i => i.IdClient == user.IdUser).ToList();
+            if (!TempFile.ChekNew.Contains(7))
+            {
+                ord = ContextDB.Order.Where(i => i.IdClient == user.IdUser).ToList();
+
+            }
+            else
+            {
+                ord = ContextDB.Order.ToList();
+            }
             var selectProd = ord.FirstOrDefault(i => i.IdOrder >= 1);
 
             //Номера заказов: 1,2,3... и т.д
@@ -111,12 +120,51 @@ namespace Bakery.Windows
                     break;
             }
 
+            //string date = "28.03.2023";
+            //string LastDate = "0.04.2023";
+            //var x = Convert.ToDateTime(LastDate);
+            //var c = Convert.ToDateTime(date);
+            //List<Order> ord1 = new List<Order>();
+            //ord1
+
+            //DataPickerFrom.SelectedDate = DateTime.Now.Date;
+            //var DateFrom1 = Convert.ToDateTime(DataPickerFrom.Text);
+            //if (DateFrom1.Day == DateTime.Now.Day)
+            //{
+            //    ord = ord.Where(i => i.OrderDate >= DateFrom1).ToList();
+            //}
+           if (TempFile.ChekNew.Contains(8) && TempFile.ChekNew.Contains(9) && DataPickerFrom.Text != "" && DataPickerBefore.Text != "")
+            {
+                var DateFrom = Convert.ToDateTime(DataPickerFrom.Text);
+                var DateBefore = Convert.ToDateTime(DataPickerBefore.Text);
+
+                ord = ord.Where(i => i.OrderDate >= DateFrom && i.OrderDate <= DateBefore).ToList();
+            }
+            else if (TempFile.ChekNew.Contains(8) && DataPickerFrom.Text != "")
+            {
+                var DateFrom = Convert.ToDateTime(DataPickerFrom.Text);
+                ord = ord.Where(i => i.OrderDate >= DateFrom).ToList();
+            }
+            else if(TempFile.ChekNew.Contains(9) && DataPickerBefore.Text != "")
+            {
+                var DateBefore = Convert.ToDateTime(DataPickerBefore.Text);
+                ord = ord.Where(i =>  i.OrderDate <= DateBefore).ToList();
+            }
+
+
+            //if (ord.Count == 0 || ord.Count == 1)
+            //{
+            //    return;
+            //}
+          //  TempFile.ChekNew.Clear();
+
             LvOrders.ItemsSource = ord;
 
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            TempFile.ChekNew.Clear();
             ProductList productList = new ProductList();
             this.Close();
             productList.Show();
@@ -154,11 +202,34 @@ namespace Bakery.Windows
         {
             List<Order> ord = new List<Order>();
             var user = TempFile.user;
-            ord = ContextDB.Order.Where(i => i.IdClient == user.IdUser).ToList();
+            if (!TempFile.ChekNew.Contains(7))
+            {
+                ord = ContextDB.Order.Where(i => i.IdClient == user.IdUser).ToList();
+            }
+            else
+            {
+                ord = ContextDB.Order.ToList();
+            }
+
             TbSearch.Clear();
             CMBSorting.SelectedIndex = 0;
+            //TempFile.ChekNew.Clear();
             ord = ord.OrderByDescending(i => i.IdOrder).ToList();
+            DataPickerFrom.SelectedDate = null;
+            DataPickerBefore.SelectedDate = null;
             LvOrders.ItemsSource = ord;
+        }
+
+        private void DataPickerFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TempFile.ChekNew.Add(8);
+            Page_Loaded(sender, e);
+        }
+
+        private void DataPickerBefore_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TempFile.ChekNew.Add(9);
+            Page_Loaded(sender, e);
         }
     }
 }

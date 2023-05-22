@@ -169,9 +169,12 @@ namespace Bakery.Windows
             CMBFilter.SelectedIndex = -1;
         }
 
-        private void SignInBasket_Click(object sender, RoutedEventArgs e)
+        private void Orders_Click(object sender, RoutedEventArgs e)
         {
-
+            TempFile.ChekNew.Add(7);
+            OrderList orderList= new OrderList();
+            this.Close();
+            orderList.ShowDialog();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

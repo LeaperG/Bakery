@@ -38,7 +38,10 @@ namespace Bakery.Windows
         {
             List<OrderProd> orderProds= new List<OrderProd>();
             orderProds = ContextDB.OrderProd.ToList();
-            orderProds = orderProds.Where(i => i.Order.IdOrder == TempFile.IdOrder).ToList();
+            //if (!TempFile.ChekNew.Contains(10))
+            //{
+                orderProds = orderProds.Where(i => i.Order.IdOrder == TempFile.IdOrder).ToList();
+            //}
 
 
             LvProductOrder.ItemsSource = orderProds;
