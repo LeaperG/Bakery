@@ -35,8 +35,6 @@ namespace Bakery.Windows
             var user = TempFile.user;
             baskets = EFClass.ContextDB.Basket.Where(i => i.IdClient == user.IdUser).ToList();
 
-
-
             //Отображение количества в корзине
             var basket = ContextDB.Basket.ToList();
             var selectedProd = basket.FirstOrDefault(i => i.IdClient == user.IdUser);
@@ -63,7 +61,7 @@ namespace Bakery.Windows
                     b = 0;
                     g = 0;
                 }
-                TempFile.Summ = sum;
+                TempFile.Summ = IsFifthFriday(DateTime.Today) ? sum * .8m : sum;
                 str = Convert.ToString(sum);
                 TXBCostOrder.Text = str.Substring(0, str.Length -2) + " Руб";
             }
@@ -82,6 +80,18 @@ namespace Bakery.Windows
             {
                 LvProductBasket.ItemsSource = baskets;
             }
+        }
+
+        private bool IsFifthFriday(DateTime date)
+        {
+            if (date.DayOfWeek != DayOfWeek.Friday)
+                return false;
+
+            int fridaysCount = 0;
+            for (int i = date.Day; i > 0; i -= 7)
+                fridaysCount++;
+
+            return fridaysCount == 5;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
